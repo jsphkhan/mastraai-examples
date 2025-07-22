@@ -12,10 +12,14 @@ import { orderAgent } from './agents/order-agent';
 import { planningAgent } from './agents/planning-agent';
 import { synthesizeAgent } from './agents/synthesize-agent';
 import { summaryTravelAgent, travelAgent } from './workflows/human-in-loop-workflow';
+import { network } from './networks/agent-network';
 
 export const mastra = new Mastra({
   workflows: { weatherWorkflow, orderWorkflow, activityPlanningWorkflow, conditionalWorkflow, humanInLoopWorkflow },
   agents: { weatherAgent, orderAgent, planningAgent, synthesizeAgent, summaryTravelAgent, travelAgent },
+  vnext_networks: {
+    network,
+  },
   storage: new LibSQLStore({
     // stores telemetry, evals, ... into memory storage, if it needs to persist, change to file:../mastra.db
     url: ":memory:",
