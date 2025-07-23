@@ -6,6 +6,7 @@ import { openai } from '@ai-sdk/openai';
 import { LibSQLStore } from '@mastra/libsql';
 import { z } from 'zod';
 import { weatherAgent } from '../agents/weather-agent';
+import { orderAgent } from '../agents/order-agent';
 import { conditionalWorkflow } from '../workflows/conditional-workflow';
 
 
@@ -30,6 +31,13 @@ const agent2 = new Agent({
     instructions:
       'This agent is used to do text synthesis on researched material. Write a full report based on the researched material. Do not use bullet points. Write full paragraphs. There should not be a single bullet point in the final report. You write articles. Use a maximum of 10 words in total.',
     model: openai('gpt-4o'),
+});
+
+const defaultAgent1 = new Agent({
+  name: 'defaultAgent',
+  description: 'This is the default agent that will be used if no other agent is available.',
+  instructions: 'You are a helpful assistant that can answer questions and help with relevant information.',
+  model: openai('gpt-4o-mini'),
 });
 
 const agentStep1 = createStep({
@@ -101,10 +109,13 @@ const network = new NewAgentNetwork({
     instructions: `You are a network of helpful agents that can answer questions and help with relevant information.`,
     //'You can research cities. You can also synthesize research material. You can also write a full report based on the researched material. If a city is not found, you should politely say that you research only about cities.',
     model: openai('gpt-4o'),
+    defaultAgent: defaultAgent1,
     agents: {
         agent1,
         agent2,
-        weatherAgent
+        weatherAgent,
+        orderAgent,
+        defaultAgent1
     },
     workflows: {
         workflow1,

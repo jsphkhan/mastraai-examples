@@ -14,6 +14,8 @@ import { synthesizeAgent } from './agents/synthesize-agent';
 import { summaryTravelAgent, travelAgent } from './workflows/human-in-loop-workflow';
 import { network } from './networks/agent-network';
 
+const ENV = process.env.NODE_ENV || "development";
+
 export const mastra = new Mastra({
   workflows: { weatherWorkflow, orderWorkflow, activityPlanningWorkflow, conditionalWorkflow, humanInLoopWorkflow },
   agents: { weatherAgent, orderAgent, planningAgent, synthesizeAgent, summaryTravelAgent, travelAgent },
@@ -28,4 +30,11 @@ export const mastra = new Mastra({
     name: 'Mastra',
     level: 'info',
   }),
+  server: {
+    cors: ENV === "development" ? {
+      origin: "*",
+      allowMethods: ["*"],
+      allowHeaders: ["*"],
+    } : undefined,
+  }
 });
