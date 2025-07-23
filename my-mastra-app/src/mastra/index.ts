@@ -4,6 +4,7 @@ import { PinoLogger } from '@mastra/loggers';
 import { LibSQLStore } from '@mastra/libsql';
 import { weatherWorkflow } from './workflows/weather-workflow';
 import { weatherAgent } from './agents/weather-agent';
+import { githubAgent } from './agents/github-agent';
 import { orderWorkflow } from './workflows/order-workflow';
 import { activityPlanningWorkflow } from './workflows/parallel-workflow';
 import { conditionalWorkflow } from './workflows/conditional-workflow';
@@ -18,10 +19,11 @@ const ENV = process.env.NODE_ENV || "development";
 
 export const mastra = new Mastra({
   workflows: { weatherWorkflow, orderWorkflow, activityPlanningWorkflow, conditionalWorkflow, humanInLoopWorkflow },
-  agents: { weatherAgent, orderAgent, planningAgent, synthesizeAgent, summaryTravelAgent, travelAgent },
+  agents: { weatherAgent, orderAgent, planningAgent, synthesizeAgent, summaryTravelAgent, travelAgent, githubAgent },
   vnext_networks: {
     network,
   },
+  mcpServers: {},
   storage: new LibSQLStore({
     // stores telemetry, evals, ... into memory storage, if it needs to persist, change to file:../mastra.db
     url: ":memory:",
