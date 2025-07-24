@@ -129,7 +129,7 @@ const travelPlannerStep = createStep({
 // 2. Gets user input
 // 3. Creates detailed plan
 const humanInLoopWorkflow = createWorkflow({
-    id: "human-in-loop-workflow",
+    id: "Human in the Loop",
     inputSchema: z.object({
       vacationDescription: z.string().describe("The description of the vacation"),
     }),

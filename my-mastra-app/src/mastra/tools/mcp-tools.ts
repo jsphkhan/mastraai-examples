@@ -6,9 +6,9 @@ const mcp = new MCPClient({
       github: {
         url: new URL("https://github-mcp-server.klavis.ai/mcp/?instance_id=14725952-b7d0-405e-bc03-5af7c75c8cfb"),
       },
-      youtube: {
-        url: new URL("https://youtube-mcp-server.klavis.ai/mcp/?instance_id=0ad6d75c-f569-4a19-a2e7-b406eb008ca4"),
-      },
+      // youtube: {
+      //   url: new URL("https://youtube-mcp-server.klavis.ai/mcp/?instance_id=0ad6d75c-f569-4a19-a2e7-b406eb008ca4"),
+      // },
     },
 });
 

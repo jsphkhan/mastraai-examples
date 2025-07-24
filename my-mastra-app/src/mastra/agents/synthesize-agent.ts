@@ -6,7 +6,7 @@ const llm = openai("gpt-4o-mini");
 // Define the synthesize agent that combines indoor and outdoor activity plans
 // into a comprehensive report, considering weather conditions and alternatives
 const synthesizeAgent = new Agent({
-  name: "synthesizeAgent",
+  name: "Synthesize Agent",
   model: llm,
   instructions: `
   You are given two different blocks of text, one about indoor activities and one about outdoor activities.
