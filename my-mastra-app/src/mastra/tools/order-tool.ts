@@ -4,33 +4,33 @@ import { getHubAuthToken } from './utils/authentication';
 
 /**
  * Tool to get detailed information about an order by order number
- * @param orderNumber - The order number to fetch information for
+ * @param orderId - The order number to fetch information for
  * @returns The order information
  */
 export const orderTool = createTool({
   id: 'get-order-details',
-  description: 'Get detailed information about an order by order number',
+  description: 'Get detailed information about an order by order ID',
   inputSchema: z.object({
-    orderNumber: z.string().describe('Order Number to fetch information for'),
+    orderId: z.string().describe('Order ID to fetch information for'),
   }),
   outputSchema: z.object({
-    orderNumber: z.string(),
+    orderId: z.string(),
     status: z.string(),
     date: z.string(),
   }),
   execute: async ({ context, runtimeContext }) => {
     // console.log('runtimeContext', runtimeContext);
-    return await getOrderInfo(context.orderNumber);
+    return await getOrderInfo(context.orderId);
   },
 });
 
-const getOrderInfo = async (orderNumber: string) => {
-  console.log('Fetching order information for order number:', orderNumber);
+const getOrderInfo = async (orderId: string) => {
+  console.log('Fetching order information for order number:', orderId);
 
   const authToken = await getHubAuthToken();
 
   const response = await fetch(
-    `${process.env.HUB_API_URL}/api/order-list/${orderNumber}`,
+    `${process.env.HUB_API_URL}/api/order-list/${orderId}`,
     {
       headers: {
         authorization: `Bearer ${authToken}`,
@@ -43,14 +43,14 @@ const getOrderInfo = async (orderNumber: string) => {
   if (!data) {
     // Return a default order if the specific orderId is not found
     return {
-      orderNumber: '',
+      orderId: '',
       status: 'not_found',
       date: '',
     };
   }
 
   return {
-    orderNumber: data.orderNumber,
+    orderId: data.orderNumber,
     status: data.statusText,
     date: data.createdAt,
   };
@@ -74,7 +74,7 @@ export const orderListTool = createTool({
   outputSchema: z.object({
     orders: z.array(
       z.object({
-        orderNumber: z.string(),
+        orderId: z.string(),
         status: z.string(),
         date: z.string(),
       })
@@ -130,7 +130,7 @@ const getOrderList = async (filters: {
 
   return {
     orders: data.data.map((order: any) => ({
-      orderNumber: order.orderNumber,
+      orderId: order.orderNumber,
       status: order.statusText,
       date: order.createdAt,
       customerEmail: order.contact.email,
