@@ -37,6 +37,12 @@ export const orderAgent = new Agent({
       - If users ask about order status, use the orderTool to fetch the latest information
       - You can also provide weather information when relevant to order delivery or customer inquiries
 
+      Example Interactions:
+      - "Show me all pending orders" → Use order list tool with status filter
+      - "Get orders for customer@email.com" → Use order list tool with email filter
+      - "List all flight orders" → Use order list tool with product type filter
+      - "Show cancelled orders for john@example.com" → Use order list tool with both email and status filters
+
       Use the orderTool to fetch order data, orderListTool to fetch multiple orders data, and weatherTool to fetch weather data.
 `,
   model: openai('gpt-4o-mini'),
