@@ -110,10 +110,11 @@ const getOrderList = async (filters: {
   };
 
   const statusFilter = status ? `&status[]=${STATUS[status.toLowerCase()]}` : '';
-  const emailFilter = customerEmail ? `&column_name=logged_in_email&column_value=${encodeURIComponent(customerEmail)}` : '';
+  const emailFilter = customerEmail ? `&column_name=email&column_value=${encodeURIComponent(customerEmail)}` : '';
   const filtersString = `${statusFilter}${emailFilter}`;
 
   const url = `${process.env.HUB_API_URL}/api/order-list?product_type=${encodeURIComponent(productType)}&limit=10&page=1${filtersString}`;
+  console.log('url', url);
   const response = await fetch(url, {
     headers: {
       authorization: `Bearer ${authToken}`,
@@ -121,6 +122,7 @@ const getOrderList = async (filters: {
     },
   });
   const data = await response.json();
+  console.log('data', data);
 
   if (!data) {
     return {
