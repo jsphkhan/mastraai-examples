@@ -1,7 +1,7 @@
 import { MCPClient } from "@mastra/mcp";
 
 // connect to Github & Youtube MCP Servers hosted on Klavis AI
-const mcp = new MCPClient({
+const mcpClient = new MCPClient({
     servers: {
       github: {
         url: new URL("https://github-mcp-server.klavis.ai/mcp/?instance_id=14725952-b7d0-405e-bc03-5af7c75c8cfb"),
@@ -13,10 +13,10 @@ const mcp = new MCPClient({
 });
 
 // returns an array of all tools across all servers
-const mcpTools = await mcp.getTools();
+const githubMCPTools = await mcpClient.getTools();
 
-// console.log('##### mcpTools: ', mcpTools);
+// console.log('##### mcpTools: ', githubMCPTools);
 
-export { mcpTools };
+export { githubMCPTools };
 
   

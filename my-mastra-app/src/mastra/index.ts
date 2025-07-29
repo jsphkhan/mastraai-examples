@@ -10,6 +10,7 @@ import { orderAgent } from './agents/order-agent';
 import { planningAgent } from './agents/planning-agent';
 import { synthesizeAgent } from './agents/synthesize-agent';
 import { summaryTravelAgent, travelAgent } from './workflows/human-in-loop-workflow';
+import { mastraDocsAgent } from './agents/mastra-docs-agent';
 
 // workflows
 import { orderWorkflow } from './workflows/order-workflow';
@@ -26,7 +27,7 @@ const ENV = process.env.NODE_ENV || "development";
 
 export const mastra = new Mastra({
   workflows: { weatherWorkflow, orderWorkflow, activityPlanningWorkflow, conditionalWorkflow, humanInLoopWorkflow, recruitmentWorkflow },
-  agents: { weatherAgent, orderAgent, planningAgent, synthesizeAgent, summaryTravelAgent, travelAgent, githubAgent },
+  agents: { weatherAgent, orderAgent, planningAgent, synthesizeAgent, summaryTravelAgent, travelAgent, githubAgent},
   vnext_networks: {
     network,
   },

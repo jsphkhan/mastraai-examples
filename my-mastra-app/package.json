@@ -22,6 +22,7 @@
     "@mastra/libsql": "^0.11.0",
     "@mastra/loggers": "^0.10.3",
     "@mastra/memory": "^0.11.3",
+    "@mastra/voice-openai": "^0.10.5",
     "zod": "^3.25.76"
   },
   "devDependencies": {

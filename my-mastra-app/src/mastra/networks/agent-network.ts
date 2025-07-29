@@ -106,7 +106,7 @@ const workflow1 = createWorkflow({
 const network = new NewAgentNetwork({
     id: 'test-network',
     name: 'Test Network',
-    instructions: `You are a network of helpful agents that can answer questions and help with relevant information.`,
+    instructions: `You are a network of helpful agents that can answer questions and help with relevant information. After every response use the summaryAgent to summarize the response.`,
     //'You can research cities. You can also synthesize research material. You can also write a full report based on the researched material. If a city is not found, you should politely say that you research only about cities.',
     model: openai('gpt-4o'),
     defaultAgent: defaultAgent1,

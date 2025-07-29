@@ -7,17 +7,16 @@ import { openai } from '@ai-sdk/openai';
 import { Agent } from '@mastra/core/agent';
 import { Memory } from '@mastra/memory';
 import { LibSQLStore } from '@mastra/libsql';
-import { mcpTools } from '../tools/mcp-tools';
+import { githubMCPTools } from '../tools/github-mcp-tools';
 
-// const { github_github_search_repositories } = mcpTools;
+// const { github_github_search_repositories } = githubMCPTools;
 
 export const githubAgent = new Agent({
   name: 'Github Agent',
   description: 'A helpful assistant that can help with Github related tasks',
-  instructions: `You are a helpful assistant that can help with Github related tasks. Use the provided tools to handle user queries.
-`,
+  instructions: `You are a helpful assistant that can help with Github related tasks. Use the provided tools to handle user queries.`,
   model: openai('gpt-4o-mini'),
-  tools: mcpTools,
+  tools: githubMCPTools,
   // tools: {
   //   github_github_search_repositories,
   // },
