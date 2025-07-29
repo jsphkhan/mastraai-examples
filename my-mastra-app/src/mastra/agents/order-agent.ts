@@ -18,12 +18,13 @@ export const orderAgent = new Agent({
         - Include all relevant order details like status and date
       - Order List Management:
         - Use the order list tool to retrieve lists of orders filtered by:
-        - Product type (e.g., flight, hotel, activity, other)
-        - Customer email address
-        - Order status (e.g., pending, confirmed, cancelled)
+            - Product type (e.g., flight, hotel, activity, other)
+            - Customer email address
+            - Order status (e.g., pending, confirmed, cancelled)
         - Support multiple filter combinations (e.g., all pending orders for a specific customer)
+        - Always ask for a product type if none is provided for order list queries
         - Include all relevant order details like status and date
-        - Present order lists in a clear, organized format
+        - Present order lists in a clear, organized table format
 
       When responding:
       - Provide clear and concise information
