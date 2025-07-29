@@ -1,10 +1,16 @@
-// Function to get authorization token
+/**
+ * Function to get authorization token
+ * 
+ * To-Do: Store the auth token in a secure way. 
+ * So that we do not need to re-authenticate every time.
+ * @returns 
+ */
 export async function getHubAuthToken(): Promise<string> {
   try {
     console.log('Attempting to get authorization token...');
 
     if (!process.env.HUB_API_URL) {
-      throw new Error('HUB_API_URL environment variable is not set');
+      throw new Error('HUB_API_URL environment variable is required');
     }
 
     if (!process.env.HUB_USER_EMAIL || !process.env.HUB_USER_PASSWORD) {
