@@ -16,6 +16,8 @@ import { synthesizeAgent } from './agents/synthesize-agent';
 import { summaryTravelAgent, travelAgent } from './workflows/human-in-loop-workflow';
 import { mastraDocsAgent } from './agents/mastra-docs-agent';
 import { findStatusAgent } from './agents/find-status-agent';
+import { orderAgentSingle } from './agents/order-agent-single';
+import { orderAgentList } from './agents/order-agent-list';
 
 // workflows
 import { orderWorkflow } from './workflows/order-workflow';
@@ -27,27 +29,25 @@ import { recruitmentWorkflow } from './workflows/recruitment-workflow';
 
 // agent networks
 import { network } from './networks/agent-network';
+import { orderAgentNetwork } from './networks/order-agent-network';
 
 const ENV = process.env.NODE_ENV || "development";
 
 // mongo db conn url
-let db: Db;
-async function connectToMongoDB() {
-  const mongoUrl = `${process.env.MONGODB_URL}/${process.env.MONGODB_DB_NAME}`;
-  const mongoClient = new MongoClient(mongoUrl);
-  console.log('** Main server conecting to mongodb ** ', mongoUrl);
-  const conn = await mongoClient.connect();
-  db = conn.db(process.env.MONGODB_DB_NAME);
-  console.log('** Main server mongodb connected **');
-}
-connectToMongoDB();
+const mongoUrl = `${process.env.MONGODB_URL}/${process.env.MONGODB_DB_NAME}`;
+const mongoClient = new MongoClient(mongoUrl);
+console.log('** Main server conecting to mongodb ** ', mongoUrl);
+const conn = await mongoClient.connect();
+const db = conn.db(process.env.MONGODB_DB_NAME);
+console.log('** Main server mongodb connected **');
 
 
 const mastra = new Mastra({
   workflows: { weatherWorkflow, orderWorkflow, activityPlanningWorkflow, conditionalWorkflow, humanInLoopWorkflow, recruitmentWorkflow },
-  agents: { weatherAgent, orderAgent, planningAgent, synthesizeAgent, summaryTravelAgent, travelAgent, githubAgent, findStatusAgent},
+  agents: { weatherAgent, orderAgent, planningAgent, synthesizeAgent, summaryTravelAgent, travelAgent, githubAgent, findStatusAgent, orderAgentSingle, orderAgentList},
   vnext_networks: {
     network,
+    orderAgentNetwork
   },
   mcpServers: {},
   storage: new LibSQLStore({

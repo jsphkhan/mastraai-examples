@@ -17,24 +17,24 @@ const fetchStatusIdStep = createStep({
         query: z.string().describe('user query from which the status value should be found'),
     }),
     outputSchema: z.object({
-        status_value: z.string().describe('Matched status value from the user query'),
-        id: z.string().describe('Matched status ID from the user query'),
     }),
     execute: async ({ inputData, mastra }) => {
         if (!inputData) {
             throw new Error('Input data not found');
         }
-        // structured output
-        const response = await findStatusAgent.generate(inputData?.query, {
-            output: z.object({
-                status_value: z.string(),
-                id: z.string()
-            })
-        });
 
-        console.log('Response 1:', response.object);
+        // console.log("inputData", inputData);
 
-        return response.object;
+        const response = await findStatusAgent.generate([
+            {
+                role: 'user',
+                content: inputData?.query
+            }
+        ]);
+
+        console.log('Response 1:', response.text);
+
+        return response.text;
     }
 });
 
@@ -90,6 +90,7 @@ const fetchStatusIdStep = createStep({
 
 const orderWorkflow = createWorkflow({
   id: 'order-workflow',
+  description: 'This workflow is used to get a list of orders. First it will fetch status ID from the suer query. And then it will fetch the list of orders based on the provided filters.',
   inputSchema: z.object({
     query: z.string().describe('user query from which the status value should be found'),
   }),

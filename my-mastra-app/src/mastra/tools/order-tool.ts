@@ -68,7 +68,7 @@ export const orderListTool = createTool({
   id: 'get-order-list',
   description: 'Get list of orders for given filters. Fetches the first 5 orders from the database. Return a maximum of 5 orders.',
   inputSchema: z.object({
-    productType: z.string().describe('The product type of the order. For example flights, hotels, activities'),
+    productType: z.string().optional().describe('The product type of the order. For example flights, hotels, activities'),
     status: z.string().optional().describe('The status of the order.'),
     customerEmail: z.string().optional().describe('The email of the customer.'),
   }),
@@ -93,7 +93,7 @@ export const orderListTool = createTool({
 });
 
 const getOrderList = async (filters: {
-  productType: string;
+  productType: string | undefined;
   status: string | undefined;
   customerEmail: string | undefined;
 }, dbCon: any) => {
@@ -111,12 +111,13 @@ const getOrderList = async (filters: {
     new: '96',
   };
 
+  const productTypeFilter = productType ? `&product_type=${encodeURIComponent(productType)}` : '';
   const statusFilter = status ? `&status[]=${STATUS[status.toLowerCase()]}` : '';
   const emailFilter = customerEmail ? `&column_name=email&column_value=${encodeURIComponent(customerEmail)}` : '';
   const filtersString = `${statusFilter}${emailFilter}`;
 
   const limit = 5; // this can come from user query and can come as param to the tool
-  const url = `${process.env.HUB_API_URL}/api/order-list?product_type=${encodeURIComponent(productType)}&limit=${limit}&page=1${filtersString}`;
+  const url = `${process.env.HUB_API_URL}/api/order-list?${productTypeFilter}&limit=${limit}&page=1${filtersString}`;
   console.log('url', url);
   const response = await fetch(url, {
     headers: {
