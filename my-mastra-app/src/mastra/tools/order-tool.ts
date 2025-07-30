@@ -18,16 +18,17 @@ export const orderTool = createTool({
     status: z.string(),
     date: z.string(),
   }),
-  execute: async ({ context, runtimeContext }) => {
+  execute: async ({ context, mastra }) => {
     // console.log('runtimeContext', runtimeContext);
-    return await getOrderInfo(context.orderId);
+    // @ts-ignore
+    return await getOrderInfo(context.orderId, mastra?.dbCon);
   },
 });
 
-const getOrderInfo = async (orderId: string) => {
+const getOrderInfo = async (orderId: string, dbCon: any) => {
   console.log('Fetching order information for order number:', orderId);
 
-  const authToken = await getHubAuthToken();
+  const authToken = await getHubAuthToken(dbCon);
 
   const response = await fetch(
     `${process.env.HUB_API_URL}/api/order-list/${orderId}`,
@@ -80,13 +81,14 @@ export const orderListTool = createTool({
       })
     ),
   }),
-  execute: async ({ context, runtimeContext }) => {
+  execute: async ({ context, mastra }) => {
     // console.log('runtimeContext', runtimeContext);
     return await getOrderList({
       productType: context.productType,
       status: context.status,
       customerEmail: context.customerEmail,
-    });
+      // @ts-ignore
+    }, mastra?.dbCon);
   },
 });
 
@@ -94,8 +96,8 @@ const getOrderList = async (filters: {
   productType: string;
   status: string | undefined;
   customerEmail: string | undefined;
-}) => {
-  const authToken = await getHubAuthToken();
+}, dbCon: any) => {
+  const authToken = await getHubAuthToken(dbCon);
   const { productType, status, customerEmail } = filters;
   console.log('Fetching list of orders for given filters:', {
     productType,

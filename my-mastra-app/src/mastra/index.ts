@@ -1,4 +1,8 @@
 
+import 'dotenv/config';
+
+import { MongoClient } from 'mongodb';
+
 import { Mastra } from '@mastra/core/mastra';
 import { PinoLogger } from '@mastra/loggers';
 import { LibSQLStore } from '@mastra/libsql';
@@ -25,7 +29,16 @@ import { network } from './networks/agent-network';
 
 const ENV = process.env.NODE_ENV || "development";
 
-export const mastra = new Mastra({
+// mongo db conn url
+const mongoUrl = `${process.env.MONGODB_URL}/${process.env.MONGODB_DB_NAME}`;
+const mongoClient = new MongoClient(mongoUrl);
+console.log('** Main server conecting to mongodb ** ', mongoUrl);
+const conn = await mongoClient.connect();
+const db = conn.db(process.env.MONGODB_DB_NAME);
+console.log('** Main server mongodb connected **');
+
+
+const mastra = new Mastra({
   workflows: { weatherWorkflow, orderWorkflow, activityPlanningWorkflow, conditionalWorkflow, humanInLoopWorkflow, recruitmentWorkflow },
   agents: { weatherAgent, orderAgent, planningAgent, synthesizeAgent, summaryTravelAgent, travelAgent, githubAgent},
   vnext_networks: {
@@ -46,5 +59,10 @@ export const mastra = new Mastra({
       allowMethods: ["*"],
       allowHeaders: ["*"],
     } : undefined,
-  }
+  },
 });
+
+// @ts-ignore
+mastra.dbCon = db;
+
+export { mastra };
