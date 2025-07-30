@@ -1,7 +1,7 @@
 
 import 'dotenv/config';
 
-import { MongoClient } from 'mongodb';
+import { MongoClient, Db } from 'mongodb';
 
 import { Mastra } from '@mastra/core/mastra';
 import { PinoLogger } from '@mastra/loggers';
@@ -15,6 +15,7 @@ import { planningAgent } from './agents/planning-agent';
 import { synthesizeAgent } from './agents/synthesize-agent';
 import { summaryTravelAgent, travelAgent } from './workflows/human-in-loop-workflow';
 import { mastraDocsAgent } from './agents/mastra-docs-agent';
+import { findStatusAgent } from './agents/find-status-agent';
 
 // workflows
 import { orderWorkflow } from './workflows/order-workflow';
@@ -30,17 +31,21 @@ import { network } from './networks/agent-network';
 const ENV = process.env.NODE_ENV || "development";
 
 // mongo db conn url
-const mongoUrl = `${process.env.MONGODB_URL}/${process.env.MONGODB_DB_NAME}`;
-const mongoClient = new MongoClient(mongoUrl);
-console.log('** Main server conecting to mongodb ** ', mongoUrl);
-const conn = await mongoClient.connect();
-const db = conn.db(process.env.MONGODB_DB_NAME);
-console.log('** Main server mongodb connected **');
+let db: Db;
+async function connectToMongoDB() {
+  const mongoUrl = `${process.env.MONGODB_URL}/${process.env.MONGODB_DB_NAME}`;
+  const mongoClient = new MongoClient(mongoUrl);
+  console.log('** Main server conecting to mongodb ** ', mongoUrl);
+  const conn = await mongoClient.connect();
+  db = conn.db(process.env.MONGODB_DB_NAME);
+  console.log('** Main server mongodb connected **');
+}
+connectToMongoDB();
 
 
 const mastra = new Mastra({
   workflows: { weatherWorkflow, orderWorkflow, activityPlanningWorkflow, conditionalWorkflow, humanInLoopWorkflow, recruitmentWorkflow },
-  agents: { weatherAgent, orderAgent, planningAgent, synthesizeAgent, summaryTravelAgent, travelAgent, githubAgent},
+  agents: { weatherAgent, orderAgent, planningAgent, synthesizeAgent, summaryTravelAgent, travelAgent, githubAgent, findStatusAgent},
   vnext_networks: {
     network,
   },
