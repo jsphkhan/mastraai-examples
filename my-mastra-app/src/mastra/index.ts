@@ -10,7 +10,6 @@ import { LibSQLStore } from '@mastra/libsql';
 // agents
 import { weatherAgent } from './agents/weather-agent';
 import { githubAgent } from './agents/github-agent';
-import { orderAgent } from './agents/order-agent';
 import { planningAgent } from './agents/planning-agent';
 import { synthesizeAgent } from './agents/synthesize-agent';
 import { summaryTravelAgent, travelAgent } from './workflows/human-in-loop-workflow';
@@ -44,7 +43,7 @@ console.log('** Main server mongodb connected **');
 
 const mastra = new Mastra({
   workflows: { weatherWorkflow, orderWorkflow, activityPlanningWorkflow, conditionalWorkflow, humanInLoopWorkflow, recruitmentWorkflow },
-  agents: { weatherAgent, orderAgent, planningAgent, synthesizeAgent, summaryTravelAgent, travelAgent, githubAgent, findStatusAgent, orderAgentSingle, orderAgentList},
+  agents: { weatherAgent, planningAgent, synthesizeAgent, summaryTravelAgent, travelAgent, githubAgent, findStatusAgent, orderAgentSingle, orderAgentList},
   vnext_networks: {
     network,
     orderAgentNetwork

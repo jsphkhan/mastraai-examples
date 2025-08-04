@@ -6,7 +6,6 @@ import { openai } from '@ai-sdk/openai';
 import { LibSQLStore } from '@mastra/libsql';
 import { z } from 'zod';
 import { weatherAgent } from '../agents/weather-agent';
-import { orderAgent } from '../agents/order-agent';
 import { conditionalWorkflow } from '../workflows/conditional-workflow';
 
 
@@ -114,7 +113,6 @@ const network = new NewAgentNetwork({
         agent1,
         agent2,
         weatherAgent,
-        orderAgent,
         defaultAgent1
     },
     workflows: {

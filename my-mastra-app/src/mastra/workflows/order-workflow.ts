@@ -176,7 +176,7 @@ const fetchStatusIdStep = createStep({
 
 const orderWorkflow = createWorkflow({
   id: 'order-workflow',
-  description: 'This workflow is used to get a list of orders. First it will fetch status ID from the suer query. And then it will fetch the list of orders based on the provided filters.',
+  description: 'This workflow is used to get a list of orders. First it will fetch status ID from the user query. And then it will fetch the list of orders based on the provided filters.',
   inputSchema: z.object({
     query: z.string().describe('user query to fetch the data for'),
   }),

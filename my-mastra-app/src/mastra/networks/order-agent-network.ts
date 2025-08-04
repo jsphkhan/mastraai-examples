@@ -25,9 +25,9 @@ const orderAgentNetwork = new NewAgentNetwork({
         orderAgentSingle,
         orderAgentList
     },
-    workflows: {
-        orderWorkflow
-    },
+    // workflows: {
+    //     orderWorkflow
+    // },
     tools: {},
     memory: memory,
 });
