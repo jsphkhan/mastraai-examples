@@ -124,17 +124,17 @@ Today is: ${new Date().toISOString()}
 ---
 
 ### Query: "Get orders for customer@email.com"
-- Action: Use "email" filter in orderListTool
+- Action: Use "email:'customer@email.com'" filter in orderListTool
 
 ---
 
 ### Query: "List all flight orders"
-- Action: Use "productType: "flight"" in orderListTool
+- Action: Use "productType:'flight'" in orderListTool
 
 ---
 
 ### Query: "Show cancelled orders for john@example.com"
-- Action: Use both "email" and "status: "Cancelled"" in orderListTool
+- Action: Use both "email: 'john@example.com'" and "status: 'Cancelled'" in orderListTool
 
 ---
 
@@ -159,7 +159,7 @@ Today is: ${new Date().toISOString()}
 Stay focused on **order list support** only.
 `;
 
-const description = 'A specialized agent for retrieving and presenting lists of orders using the orderListTool. It analyzes user queries to extract filters such as status, email, or product type, and returns results in a clear markdown table format. It handles ambiguous or missing criteria by asking follow-up questions and strictly focuses on order list-related queries.'
+const description = 'A specialized agent for retrieving and presenting lists of orders using the orderListTool. It analyzes user queries to extract filters such as status, email, or product type, and returns results in a clear markdown table format. It handles ambiguous or missing criteria by asking follow-up questions and strictly focuses on order list related queries.'
 
 export const orderAgentList = new Agent({
   name: 'Order Agent List',
