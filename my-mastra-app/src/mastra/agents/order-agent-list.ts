@@ -14,6 +14,7 @@ export const orderAgentList = new Agent({
   description: 'This agent is used to get a list of orders.',
   instructions: `
       You are a helpful order management assistant that provides comprehensive order information and can help with order-related queries.
+      Today is ${new Date().toISOString()}
       
       Your primary functions include:
       - Order List Management:

@@ -62,25 +62,30 @@ export const findStatusAgent = new Agent({
 
         Output Rules:
 
-        If Exact Match Found:
-        {
-            "status_value": "<matched status value>",
-            "id": <matched id>
-        }
+            If Exact Match Found:
+            {
+                "status_value": "<matched status value>",
+                "id": <matched id>
+            }
 
-        If Only Partial Matches Found:
-        Follow Up Question: "There are multiple possible status values for '<query_word>'. Which one do you mean? 1. <Option 1> 2. <Option 2> 3. <Option 3> ..."-
+            If Only Partial Matches Found:
+            {
+                "follow_up_question": "There are multiple possible status values for '<query_word>'. Which one do you mean? 1. <Option 1> 2. <Option 2> 3. <Option 3> ..."
+            }
 
         Examples:
-        Query: "Show me all my cancelled orders"
-        Expected Output:
-        {
-            "status_value": "Cancelled",
-            "id": 94
-        }
+            Query: "Show me all my cancelled orders"
+            Expected Output:
+            {
+                "status_value": "Cancelled",
+                "id": 94
+            }
 
-        Query: "Give me a list of cancel orders"
-        Follow Up Question: "There are multiple possible status values for 'cancel'. Which one do you mean? 1. Cancelled 2. Cancellation under process 3. Partially Cancelled 4. Manually Cancelled 5. Smart Booking Cancelled 6. Auto Confirm Cancelled"
+            Query: "Give me a list of cancel orders"
+            Expected Output:
+            {
+                "follow_up_question": "There are multiple possible status values for 'cancel'. Which one do you mean? 1. Cancelled 2. Cancellation under process 3. Partially Cancelled 4. Manually Cancelled 5. Smart Booking Cancelled 6. Auto Confirm Cancelled"
+            }
 `,
     model: openai('gpt-4o-mini'),
 });

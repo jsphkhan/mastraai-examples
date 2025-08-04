@@ -28,6 +28,7 @@ const orderAgentNetwork = new NewAgentNetwork({
     workflows: {
         orderWorkflow
     },
+    tools: {},
     memory: memory,
 });
 
