@@ -17,6 +17,7 @@ import { mastraDocsAgent } from './agents/mastra-docs-agent';
 import { findStatusAgent } from './agents/find-status-agent';
 import { orderAgentSingle } from './agents/order-agent-single';
 import { orderAgentList } from './agents/order-agent-list';
+import { testMCPAgent } from './agents/test-mcp-agent';
 
 // workflows
 import { orderWorkflow } from './workflows/order-workflow';
@@ -25,6 +26,8 @@ import { conditionalWorkflow } from './workflows/conditional-workflow';
 import { humanInLoopWorkflow } from './workflows/human-in-loop-workflow';
 import { weatherWorkflow } from './workflows/weather-workflow';
 import { recruitmentWorkflow } from './workflows/recruitment-workflow';
+
+// mcp servers
 
 // agent networks
 import { network } from './networks/agent-network';
@@ -43,12 +46,12 @@ console.log('** Main server mongodb connected **');
 
 const mastra = new Mastra({
   workflows: { weatherWorkflow, orderWorkflow, activityPlanningWorkflow, conditionalWorkflow, humanInLoopWorkflow, recruitmentWorkflow },
-  agents: { weatherAgent, planningAgent, synthesizeAgent, summaryTravelAgent, travelAgent, githubAgent, findStatusAgent, orderAgentSingle, orderAgentList},
+  agents: { weatherAgent, planningAgent, synthesizeAgent, summaryTravelAgent, travelAgent, githubAgent, findStatusAgent, orderAgentSingle, orderAgentList, mastraDocsAgent, testMCPAgent},
   vnext_networks: {
     network,
     orderAgentNetwork
   },
-  mcpServers: {},
+  mcpServers: { },
   storage: new LibSQLStore({
     // stores telemetry, evals, ... into memory storage, if it needs to persist, change to file:../mastra.db
     url: ":memory:",

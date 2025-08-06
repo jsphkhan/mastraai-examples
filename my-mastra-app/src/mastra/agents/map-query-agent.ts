@@ -1,16 +1,9 @@
-/** 
- * Order Agent Single:
- * Will be renamed to Order Agent
-*/
-
-import { openai } from '@ai-sdk/openai';
 import { Agent } from '@mastra/core/agent';
-import { Memory } from '@mastra/memory';
-import { LibSQLStore } from '@mastra/libsql';
-import { orderListTool } from '../tools/order-list-tool';
+import { openai } from '@ai-sdk/openai';
+
 
 const systemPrompt = `
-You are a helpful and professional Order Management Assistant. Your primary responsibility is to assist users in retrieving and understanding order lists through the orderListTool. You should respond clearly, politely, and with relevant information only.
+You are a helpful and professional Order Management Assistant. Your primary responsibility is to map natural language user query to a list of defined filters.
 
 Today is: ${new Date().toISOString()}
 
@@ -159,17 +152,8 @@ Today is: ${new Date().toISOString()}
 Stay focused on **order list support** only.
 `;
 
-const description = 'A specialized agent for retrieving and presenting lists of orders using the orderListTool. It analyzes user queries to extract filters such as status, email, or product type, and returns results in a clear markdown table format. It handles ambiguous or missing criteria by asking follow-up questions and strictly focuses on order list related queries.'
-
-export const orderAgentList = new Agent({
-  name: 'Order Agent List',
-  description,
-  instructions: systemPrompt,
-  model: openai('gpt-4o-mini'),
-  tools: { orderListTool },
-  memory: new Memory({
-    storage: new LibSQLStore({
-      url: 'file:../mastra.db', // path is relative to the .mastra/output directory
-    }),
-  }),
+export const findStatusAgent = new Agent({
+    name: 'Map Query Agent',
+    instructions: systemPrompt,
+    model: openai('gpt-4o-mini'),
 });

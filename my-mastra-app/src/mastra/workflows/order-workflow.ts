@@ -9,38 +9,48 @@ const orderInfoSchema = z.object({
   date: z.string(),
 });
 
+// first step
 const mapQueryToFilterStep = createStep({
     id: 'map-query-to-filter',
     description: 'Maps the user query to a filter object',
-    inputSchema: z.object({
-        query: z.string().describe('user query from which the filter should be found'),
-    }),
+    inputSchema: z.object({}),
     outputSchema: z.object({
-        status_value: z.string(),
-        id: z.string(),
-        follow_up_question: z.string()
+        productType: z.string().describe('The product type of the order'),
+        status: z.string().describe('The status of the order.'),
+        customerEmail: z.string().describe('The email of the customer.'),
     }),
-    execute: async ({ inputData, mastra }) => {
+    resumeSchema: z.object({
+        query: z.string().describe('Please provide a user query to map to a filter object'),
+    }),
+    suspendSchema: z.object({
+        message: z.string(),
+    }),
+    execute: async ({ inputData, resumeData, suspend, mastra }) => {
         if (!inputData) {
             throw new Error('Input data not found');
         }
         
+        console.log('inputData', resumeData);
+
+        if(!resumeData?.query) {
+            return suspend({ message: 'Please provide a user query to map to a filter object' });
+        }
 
         // make LLM call to find the status value and id
-        const response = await findStatusAgent.generate([
-            {
-                role: 'user',
-                content: inputData?.query
-            }
-        ]);
+        // const response = await findStatusAgent.generate([
+        //     {
+        //         role: 'user',
+        //         content: inputData?.query
+        //     }
+        // ]);
 
-        const responseData = JSON.parse(response?.text);
-        console.log('Response 1:', responseData);
+        // const responseData = JSON.parse(response?.text);
+        // console.log('Response 1:', responseData);
 
         return {
-            status_value: responseData?.status_value,
-            id: responseData?.id,
-            follow_up_question: responseData?.follow_up_question
+            productType: 'flight',
+            status: 'cancelled',
+            customerEmail: 'john@example.com'
         };
     }
 });
@@ -178,14 +188,13 @@ const orderWorkflow = createWorkflow({
   id: 'order-workflow',
   description: 'This workflow is used to get a list of orders. First it will fetch status ID from the user query. And then it will fetch the list of orders based on the provided filters.',
   inputSchema: z.object({
-    query: z.string().describe('user query to fetch the data for'),
   }),
   outputSchema: z.object({
   }),
   steps: [mapQueryToFilterStep, humanInLoopStep, summarizeStep],
 })
 .then(mapQueryToFilterStep)
-.then(humanInLoopStep)
+// .then(humanInLoopStep)
 // .branch([
 //     [
 //         async ({ inputData }) => {
