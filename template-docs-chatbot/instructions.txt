@@ -1,0 +1,1 @@
+This folder is copied from Mastra template: https://github.com/mastra-ai/mastra/tree/main/templates/template-docs-chatbot
