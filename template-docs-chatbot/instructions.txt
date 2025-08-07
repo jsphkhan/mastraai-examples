@@ -1,1 +1,7 @@
 This folder is copied from Mastra template: https://github.com/mastra-ai/mastra/tree/main/templates/template-docs-chatbot
+
+
+THis is an example of connecting a local MCP server with a local MCP Client and then consuming it inside a Agent. 
+
+MCP server is started on a different port.
+

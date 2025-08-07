@@ -1,3 +1,10 @@
+/** 
+ * This is an example of a MCP server that is started via node script with HTTP/SSE transport on port: 4111
+ * This MCP server is used to connect to a local MCP Client and then consume it inside a Agent. 
+ * 
+ * You can connect MCP Inspector to the MCP Server using this URL: http://localhost:4111/mcp (SEE/HTTP)
+*/
+
 import { MCPServer } from '@mastra/mcp';
 import { docsTool } from '../tools/docs-tool';
 
