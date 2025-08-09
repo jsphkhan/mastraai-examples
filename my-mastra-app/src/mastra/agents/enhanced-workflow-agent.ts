@@ -63,7 +63,7 @@ export const enhancedWorkflowAgent = new Agent({
   name: 'Enhanced Workflow Agent',
   description: 'A helpful assistant that can help with workflow tasks',
   instructions: systemPrompt,
-  model: openai('gpt-4o'),
+  model: openai('gpt-4o-mini'),
   tools: {
     enhancedWorkflowTool
   },

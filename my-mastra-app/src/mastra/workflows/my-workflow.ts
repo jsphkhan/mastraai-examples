@@ -12,7 +12,7 @@ const emailAgent = new Agent({
     name: 'Email Agent',
     description: 'An agent that identifies email address from the user query',
     instructions: `You are a helpful assistant that can identify and filter email address from a user query`,
-    model: openai('gpt-4o-mini')
+    model: openai('gpt-4.1-nano')
 })
 
 const queryStep = createStep({
