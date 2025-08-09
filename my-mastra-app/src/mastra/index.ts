@@ -18,6 +18,8 @@ import { findStatusAgent } from './agents/find-status-agent';
 import { orderAgentSingle } from './agents/order-agent-single';
 import { orderAgentList } from './agents/order-agent-list';
 import { testMCPAgent } from './agents/test-mcp-agent';
+import { workflowAgent } from './agents/workflow-agent';
+import { enhancedWorkflowAgent } from './agents/enhanced-workflow-agent';
 
 // workflows
 import { orderWorkflow } from './workflows/order-workflow';
@@ -26,6 +28,7 @@ import { conditionalWorkflow } from './workflows/conditional-workflow';
 import { humanInLoopWorkflow } from './workflows/human-in-loop-workflow';
 import { weatherWorkflow } from './workflows/weather-workflow';
 import { recruitmentWorkflow } from './workflows/recruitment-workflow';
+import { workflow } from './workflows/my-workflow';
 
 // mcp servers
 
@@ -45,8 +48,30 @@ console.log('** Main server mongodb connected **');
 
 
 const mastra = new Mastra({
-  workflows: { weatherWorkflow, orderWorkflow, activityPlanningWorkflow, conditionalWorkflow, humanInLoopWorkflow, recruitmentWorkflow },
-  agents: { weatherAgent, planningAgent, synthesizeAgent, summaryTravelAgent, travelAgent, githubAgent, findStatusAgent, orderAgentSingle, orderAgentList, mastraDocsAgent, testMCPAgent},
+  workflows: { 
+    weatherWorkflow, 
+    orderWorkflow, 
+    activityPlanningWorkflow, 
+    conditionalWorkflow, 
+    humanInLoopWorkflow, 
+    recruitmentWorkflow,
+    workflow
+  },
+  agents: { 
+    weatherAgent, 
+    planningAgent, 
+    synthesizeAgent, 
+    summaryTravelAgent, 
+    travelAgent, 
+    githubAgent, 
+    findStatusAgent, 
+    orderAgentSingle, 
+    orderAgentList, 
+    mastraDocsAgent, 
+    testMCPAgent,
+    workflowAgent,
+    enhancedWorkflowAgent
+  },
   vnext_networks: {
     network,
     orderAgentNetwork
