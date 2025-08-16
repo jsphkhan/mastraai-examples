@@ -1,5 +1,5 @@
 import { Agent } from "@mastra/core/agent";
-import { openai } from "@ai-sdk/openai";
+import { openai, createOpenAI } from "@ai-sdk/openai";
 
 const systemPrompt = `
 You are an expert classifier that analyzes user queries and assigns all applicable categories from the following list of available agents.

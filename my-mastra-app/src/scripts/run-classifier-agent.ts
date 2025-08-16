@@ -56,6 +56,8 @@ const runClassifierAgent = async () => {
                 content: prompt
             }
         ], {
+            temperature: 0,
+            // maxTokens: 100,
             output: schema
         });
 
@@ -78,7 +80,9 @@ const runClassifierAgent = async () => {
                     role: 'user',
                     content: agentPrompt
                 }
-            ]);
+            ], {
+                temperature: 0
+            });
 
             for await (const chunk of stream.textStream) {
                 process.stdout.write(chunk);
