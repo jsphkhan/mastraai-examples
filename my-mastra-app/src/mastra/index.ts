@@ -20,6 +20,7 @@ import { orderAgentList } from './agents/order-agent-list';
 import { testMCPAgent } from './agents/test-mcp-agent';
 import { workflowAgent } from './agents/workflow-agent';
 import { enhancedWorkflowAgent } from './agents/enhanced-workflow-agent';
+import { classifierAgent } from './agents/classifier-agent';
 
 // workflows
 import { orderWorkflow } from './workflows/order-workflow';
@@ -29,6 +30,7 @@ import { humanInLoopWorkflow } from './workflows/human-in-loop-workflow';
 import { weatherWorkflow } from './workflows/weather-workflow';
 import { recruitmentWorkflow } from './workflows/recruitment-workflow';
 import { workflow } from './workflows/my-workflow';
+import { multiAgentWorkflow, mainWorkflow } from './workflows/multi-agent-workflow';
 
 // mcp servers
 
@@ -49,32 +51,35 @@ console.log('** Main server mongodb connected **');
 
 const mastra = new Mastra({
   workflows: { 
-    weatherWorkflow, 
-    orderWorkflow, 
-    activityPlanningWorkflow, 
-    conditionalWorkflow, 
-    humanInLoopWorkflow, 
-    recruitmentWorkflow,
-    workflow
+    // weatherWorkflow, 
+    // orderWorkflow, 
+    // activityPlanningWorkflow, 
+    // conditionalWorkflow, 
+    // humanInLoopWorkflow, 
+    // recruitmentWorkflow,
+    // workflow,
+    multiAgentWorkflow,
+    mainWorkflow
   },
   agents: { 
-    weatherAgent, 
-    planningAgent, 
-    synthesizeAgent, 
-    summaryTravelAgent, 
-    travelAgent, 
-    githubAgent, 
-    findStatusAgent, 
+    // weatherAgent, 
+    // planningAgent, 
+    // synthesizeAgent, 
+    // summaryTravelAgent, 
+    // travelAgent, 
+    // githubAgent, 
+    // findStatusAgent, 
     orderAgentSingle, 
     orderAgentList, 
-    mastraDocsAgent, 
-    testMCPAgent,
-    workflowAgent,
-    enhancedWorkflowAgent
+    classifierAgent,
+    // mastraDocsAgent, 
+    // testMCPAgent,
+    // workflowAgent,
+    // enhancedWorkflowAgent
   },
   vnext_networks: {
-    network,
-    orderAgentNetwork
+    // network,
+    // orderAgentNetwork
   },
   mcpServers: { },
   storage: new LibSQLStore({

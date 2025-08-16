@@ -1,4 +1,5 @@
-import { NewAgentNetwork } from '@mastra/core/network/vNext';
+// import { NewAgentNetwork } from '@mastra/core/network/vNext';
+import { NewAgentNetwork } from '../../scripts/agentnetwork';
 import { Agent } from '@mastra/core/agent';
 import { createStep, createWorkflow } from '@mastra/core/workflows';
 import { Memory } from '@mastra/memory';
@@ -56,7 +57,7 @@ const agentStep1 = createStep({
         }),
       });
 
-      console.log('##### agent1 response: ', resp.object.text);
+      // console.log('##### agent1 response: ', resp.object.text);
    
       return { text: resp.object.text };
     },
@@ -75,10 +76,10 @@ const agentStep2 = createStep({
       const resp = await agent2.generate(inputData.text, {
         output: z.object({
           text: z.string(),
-        }),
+        })
       });
 
-      console.log('##### agent2 response: ', resp.object.text);
+      // console.log('##### agent2 response: ', resp.object.text);
    
       return { text: resp.object.text };
     },
@@ -108,7 +109,6 @@ const network = new NewAgentNetwork({
     instructions: `You are a network of helpful agents that can answer questions and help with relevant information. After every response use the summaryAgent to summarize the response.`,
     //'You can research cities. You can also synthesize research material. You can also write a full report based on the researched material. If a city is not found, you should politely say that you research only about cities.',
     model: openai('gpt-4o'),
-    defaultAgent: defaultAgent1,
     agents: {
         agent1,
         agent2,
@@ -117,7 +117,7 @@ const network = new NewAgentNetwork({
     },
     workflows: {
         workflow1,
-        conditionalWorkflow
+        // conditionalWorkflow
     },
     memory: memory,
 });

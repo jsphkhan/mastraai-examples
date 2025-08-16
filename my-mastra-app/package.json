@@ -6,7 +6,9 @@
     "test": "npx tsx src/test.ts",
     "dev": "mastra dev",
     "build": "mastra build",
-    "start": "mastra start"
+    "start": "mastra start",
+    "run-agent-network": "npx tsx src/scripts/run-agent-network.ts",
+    "run-classifier-agent": "npx tsx src/scripts/run-classifier-agent.ts"
   },
   "keywords": [],
   "author": "",
@@ -24,9 +26,11 @@
     "@mastra/mcp": "^0.10.9",
     "@mastra/memory": "^0.11.3",
     "@mastra/voice-openai": "^0.10.5",
+    "crypto": "^1.0.1",
     "dotenv": "^17.2.1",
     "mongodb": "^6.18.0",
-    "zod": "^3.25.76"
+    "zod": "^3.25.76",
+    "zod-to-json-schema": "^3.24.6"
   },
   "devDependencies": {
     "@types/node": "^24.0.14",

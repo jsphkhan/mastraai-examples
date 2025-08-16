@@ -72,6 +72,7 @@ export async function startHttpServer(port: number = 4111) {
 // If this file is run directly, start the HTTP server
 // When Mastra playground runs, it will start the MCP server
 if (import.meta.url === `file://${process.argv[1]}`) {
+  console.log('** Start server: ', import.meta.url);
   const port = parseInt(process.env.MCP_SERVER_PORT || '4111', 10);
   console.log('** Starting MCP server when Mastra playground runs. MCP Server Port: ', port);
   startHttpServer(port).catch(console.error);
